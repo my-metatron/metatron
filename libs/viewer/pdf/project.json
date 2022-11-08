@@ -1,0 +1,79 @@
+{
+  "$schema": "..\\..\\..\\node_modules\\nx\\schemas\\project-schema.json",
+  "sourceRoot": "libs/viewer/pdf/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "project": "libs/viewer/pdf/package.json",
+        "outputPath": "dist/libs/viewer/pdf",
+        "compiler": "swc",
+        "entryFile": "libs/viewer/pdf/src/index.ts",
+        "tsConfig": "libs/viewer/pdf/tsconfig.lib.json",
+        "rollupConfig": ["libs/viewer/pdf/rollup.config.cjs"],
+        "format": ["esm"],
+        "assets": [
+          {
+            "glob": "libs/viewer/pdf/*.md",
+            "input": ".",
+            "output": "."
+          },
+          {
+            "glob": "libs/viewer/pdf/src/index.html",
+            "input": ".",
+            "output": "."
+          },
+          "libs/viewer/pdf/src/assets"
+        ]
+      },
+      "configurations": {
+        "serve": {
+          "watch": true,
+          "assets": []
+        }
+      }
+    },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs @metatron/viewer-pdf {args.ver} {args.tag}"
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build"
+        }
+      ]
+    },
+    "serve": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "npm-run-all --parallel \"server ./dist/libs/viewer/pdf\" \"nx run viewer-pdf:build:serve\""
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build"
+        }
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/viewer/pdf/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/viewer/pdf"],
+      "options": {
+        "jestConfig": "libs/viewer/pdf/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["viewer", "pins"]
+}

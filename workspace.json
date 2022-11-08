@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "metaverse": "apps/metaverse"
+    "metaverse": "apps/metaverse",
+    "viewer-pdf": "libs/viewer/pdf"
   }
 }
