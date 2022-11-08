@@ -7,10 +7,10 @@
     "build": "nx build",
     "test": "nx test",
     "serve": "nx serve",
+    "publish:lib": "nx publish viewer-pdf --ver='0.0.1' --tag=latest",
     "server": "serve",
     "nx": "nx"
   },
-  "private": true,
   "dependencies": {
     "@rollup/plugin-alias": "^3.1.9",
     "@swc/helpers": "0.3.13",

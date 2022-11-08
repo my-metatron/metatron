@@ -1,5 +1,5 @@
 {
-  "name": "@metatron/viewer-pdf",
+  "name": "@metapin/viewer-pdf",
   "version": "0.0.0",
   "type": "module",
   "peerDependencies": {

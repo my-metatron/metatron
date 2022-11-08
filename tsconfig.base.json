@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@metatron/viewer/pdf": ["libs/viewer/pdf/src/index.ts"]
+      "@metapin/viewer/pdf": ["libs/viewer/pdf/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

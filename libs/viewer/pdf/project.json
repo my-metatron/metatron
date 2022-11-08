@@ -38,7 +38,7 @@
     "publish": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "node tools/scripts/publish.mjs @metatron/viewer-pdf {args.ver} {args.tag}"
+        "command": "node tools/scripts/publish.mjs viewer-pdf {args.ver} {args.tag}"
       },
       "dependsOn": [
         {
