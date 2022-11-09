@@ -20,24 +20,39 @@ AFRAME.registerComponent('interactive-pdf', {
   },
 
   init: async function () {
-    // console.log('data = ', this.data);
-    const head = document.getElementsByTagName('head')[0];
-    const script: any = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = this.data.pdfSrc;
-    let self = this;
-    script.onload = function () {
-      window.pdfjsLib.GlobalWorkerOptions.workerSrc = self.data.workerSrc;
+    // If the pdfjsLib is not added , add it to the page
+    if (!window.pdfjsLib) {
+      const head = document.getElementsByTagName('head')[0];
+      const script: any = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = this.data.pdfSrc;
+      let self = this;
+      script.onload = function () {
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = self.data.workerSrc;
+        window.pdfjsLib
+          .getDocument(self.data.fileName)
+          .promise.then(function (pdf) {
+            self.pdf = pdf;
+            self.numPages = pdf.numPages;
+            self.render(1);
+          });
+      };
+      head.appendChild(script);
+      await script.onload;
+    } else {
+      let self = this;
+      // initialize the worker lib
+      if (!window.pdfjsLib.GlobalWorkerOptions.workerSrc)
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = this.data.workerSrc;
+
       window.pdfjsLib
-        .getDocument(self.data.fileName)
+        .getDocument(this.data.fileName)
         .promise.then(function (pdf) {
           self.pdf = pdf;
           self.numPages = pdf.numPages;
           self.render(1);
         });
-    };
-    head.appendChild(script);
-    await script.onload;
+    }
     this.displayPlane = document.getElementById(this.data.id);
     this.displayMaterial = this.displayPlane.getObject3D('mesh').material;
     this.canvas = this.displayPlane.getAttribute('material').src;
