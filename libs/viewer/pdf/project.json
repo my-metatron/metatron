@@ -24,14 +24,13 @@
             "glob": "libs/viewer/pdf/src/index.html",
             "input": ".",
             "output": "."
-          },
-          "libs/viewer/pdf/src/assets"
+          }
         ]
       },
       "configurations": {
         "serve": {
           "watch": true,
-          "assets": []
+          "assets": ["libs/viewer/pdf/src/assets"]
         }
       }
     },
