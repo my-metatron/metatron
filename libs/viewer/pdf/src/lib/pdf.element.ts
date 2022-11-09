@@ -16,6 +16,17 @@ export class MetaPDFElement extends MetaElement {
   private canvasId = `canvas-${uuid().slice(0, 5)}`;
   private plainId = `pdf-plane-${uuid().slice(0, 5)}`;
 
+  @property({
+    default: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.0.279/build/pdf.min.js',
+  })
+  pdfsrc!: string;
+
+  @property({
+    default:
+      'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.0.279/build/pdf.worker.min.js',
+  })
+  pdfworkersrc!: string;
+
   @property({ default: '4.5' })
   width!: string;
 
@@ -88,6 +99,7 @@ export class MetaPDFElement extends MetaElement {
   };
 
   override render() {
+    // console.log(`workerSrc: ${this.pdfworkersrc};`);
     return html`<a-plane
         id="${this.plainId}"
         material="shader: flat; src: #${this.canvasId};"
@@ -97,7 +109,8 @@ export class MetaPDFElement extends MetaElement {
       <a-entity
         id="interactive-pdf"
         interactive-pdf="id: ${this.plainId}; fileName: ${this
-          .filename}; pageWidth: 1130; pageHeight: 1680;"
+          .filename}; pageWidth: 1130; pageHeight: 1680; pdfSrc: ${this
+          .pdfsrc}; workerSrc: ${this.pdfworkersrc};"
       >
         <meta-button
           content="Next"

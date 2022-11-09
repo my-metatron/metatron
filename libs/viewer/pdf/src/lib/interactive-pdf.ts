@@ -1,5 +1,10 @@
 AFRAME.registerComponent('interactive-pdf', {
   schema: {
+    pdfSrc: {
+      type: 'string',
+      default:
+        'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.0.279/build/pdf.min.js',
+    },
     workerSrc: {
       type: 'string',
       default:
@@ -14,7 +19,25 @@ AFRAME.registerComponent('interactive-pdf', {
     pageHeight: { type: 'float', default: 1500 },
   },
 
-  init: function () {
+  init: async function () {
+    // console.log('data = ', this.data);
+    const head = document.getElementsByTagName('head')[0];
+    const script: any = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = this.data.pdfSrc;
+    let self = this;
+    script.onload = function () {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = self.data.workerSrc;
+      window.pdfjsLib
+        .getDocument(self.data.fileName)
+        .promise.then(function (pdf) {
+          self.pdf = pdf;
+          self.numPages = pdf.numPages;
+          self.render(1);
+        });
+    };
+    head.appendChild(script);
+    await script.onload;
     this.displayPlane = document.getElementById(this.data.id);
     this.displayMaterial = this.displayPlane.getObject3D('mesh').material;
     this.canvas = this.displayPlane.getAttribute('material').src;
@@ -24,15 +47,7 @@ AFRAME.registerComponent('interactive-pdf', {
     this.pdf = null;
     this.currentPage = 1;
     this.numPages = 0;
-    window.pdfjsLib.GlobalWorkerOptions.workerSrc = this.data.workerSrc;
-    let self = this;
-    window.pdfjsLib
-      .getDocument(this.data.fileName)
-      .promise.then(function (pdf) {
-        self.pdf = pdf;
-        self.numPages = pdf.numPages;
-        self.render(1);
-      });
+
     // console.log(this.displayPlane);
   },
 

@@ -29,7 +29,6 @@
     <script src="https://networked.pinser-metaverse.com/socket.io/socket.io.js"></script>
     <script src="https://networked.pinser-metaverse.com/easyrtc/easyrtc.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe@1.3.0/dist/aframe-v1.3.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.0.279/build/pdf.min.js"></script>
     <script type="module">
       import './index.js';
       import '@pinser-metaverse/scene';
@@ -42,6 +41,8 @@
         <viewer-pdf
           position="0 0 -10"
           filename="./assets/aframe.pdf"
+          pdfsrc="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.0.279/build/pdf.min.js"
+          pdfworkersrc="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.0.279/build/pdf.worker.min.js"
         ></viewer-pdf>
       </template>
     </meta-scene>
