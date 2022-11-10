@@ -32,6 +32,11 @@
             "output": "."
           },
           {
+            "glob": "apps/metaverse/src/forest.html",
+            "input": ".",
+            "output": "."
+          },
+          {
             "glob": "apps/metaverse/src/vr.html",
             "input": ".",
             "output": "."

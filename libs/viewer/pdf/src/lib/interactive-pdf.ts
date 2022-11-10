@@ -1,3 +1,11 @@
+export {};
+
+declare global {
+  interface Window {
+    pdfjsLib: any;
+  }
+}
+
 AFRAME.registerComponent('interactive-pdf', {
   schema: {
     pdfSrc: {
