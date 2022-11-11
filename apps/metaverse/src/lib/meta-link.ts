@@ -57,11 +57,7 @@ export class MetaverseBootstrapSpaceElement extends MetaElement {
 
   override render() {
     return html`
-      <a-link
-        href="${this.href}"
-        position="2.897 1.675 -2.606"
-        image="${this.imageid}"
-      ></a-link>
+      <a-link href="${this.href}" image="${this.imageid}"></a-link>
     `;
   }
 }

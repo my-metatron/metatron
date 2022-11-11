@@ -70,9 +70,12 @@ export class MetaverseBootstrapSpaceElement extends MetaElement {
 
     <!-- space -->  
       <a-sky hide-on-ar color="#80d4ff"></a-sky>
-     <meta-link assets="${JSON.stringify(assets)}" imageId="#thumbforest"
-     href="forest.html"
-     ></meta-link>
+      <a-entity 
+      position="2.897 1.675 -2.606">
+   <meta-link assets="${JSON.stringify(
+     assets
+   )}" imageId="#thumbforest" href="forest.html"></meta-link>
+   </a-entity>
       <!-- IDLE man -->
       <meta-gltf
         url="./assets/man.glb"
