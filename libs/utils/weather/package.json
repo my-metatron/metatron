@@ -1,0 +1,8 @@
+{
+  "name": "@metapin/utils-weather",
+  "version": "0.0.0",
+  "type": "module",
+  "peerDependencies": {
+    "@pinser-metaverse/core": "latest"
+  }
+}

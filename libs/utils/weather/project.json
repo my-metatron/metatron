@@ -1,0 +1,78 @@
+{
+  "$schema": "..\\..\\..\\node_modules\\nx\\schemas\\project-schema.json",
+  "sourceRoot": "libs/utils/weather/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "project": "libs/utils/weather/package.json",
+        "outputPath": "dist/libs/utils/weather",
+        "compiler": "swc",
+        "entryFile": "libs/utils/weather/src/index.ts",
+        "tsConfig": "libs/utils/weather/tsconfig.lib.json",
+        "rollupConfig": ["libs/utils/weather/rollup.config.cjs"],
+        "format": ["esm"],
+        "assets": [
+          {
+            "glob": "libs/utils/weather/*.md",
+            "input": ".",
+            "output": "."
+          },
+          {
+            "glob": "libs/utils/weather/src/index.html",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      },
+      "configurations": {
+        "serve": {
+          "watch": true,
+          "assets": ["libs/utils/weather/src/assets"]
+        }
+      }
+    },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs @metaverse-bootstrap/utils-weather {args.ver} {args.tag}"
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build"
+        }
+      ]
+    },
+    "serve": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "npm-run-all --parallel \"server ./dist/libs/utils/weather\" \"nx run utils-weather:build:serve\""
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build"
+        }
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/utils/weather/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/utils/weather"],
+      "options": {
+        "jestConfig": "libs/utils/weather/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["utils", "pins"]
+}

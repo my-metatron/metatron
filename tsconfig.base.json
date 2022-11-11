@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@metapin/viewer/pdf": ["libs/viewer/pdf/src/index.ts"]
+      "@metapin/viewer/pdf": ["libs/viewer/pdf/src/index.ts"],
+      "@metapin/utils/weather": ["libs/utils/weather/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

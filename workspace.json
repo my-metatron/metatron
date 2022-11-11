@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "metaverse": "apps/metaverse",
+    "utils-weather": "libs/utils/weather",
     "viewer-pdf": "libs/viewer/pdf"
   }
 }
