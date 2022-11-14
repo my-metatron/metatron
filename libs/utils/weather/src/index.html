@@ -26,19 +26,29 @@
         }
       }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/annyang@2.6.1/dist/annyang.min.js"></script>
     <script src="https://networked.pinser-metaverse.com/socket.io/socket.io.js"></script>
     <script src="https://networked.pinser-metaverse.com/easyrtc/easyrtc.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe@1.3.0/dist/aframe-v1.3.0.min.js"></script>
     <script type="module">
       import './index.js';
       import '@pinser-metaverse/scene';
+      import '@pinser-metaverse/design-system';
+      import '@pinser-metaverse/gltf';
+      import '@pinser-metaverse/teleport';
     </script>
   </head>
   <body>
-    <meta-scene session="05098007-1396-429c-9906-4859c2ec6d8f">
+    <meta-scene session="559b264b-975f-46bf-80e0-f36a8c15db73">
       <template slot="scene">
-        <a-sky color="#DDDDDD"></a-sky>
-        <utils-weather position="0 0 -10"></utils-weather>
+        <a-sky hide-on-enter-ar color="#80d4ff"></a-sky>
+        <utils-weather position="-1 1.2 -2"></utils-weather>
+        <meta-teleportable
+          hide-on-enter-ar
+          width="22.9"
+          height="16.92"
+          color="#d99f20"
+        ></meta-teleportable>
       </template>
     </meta-scene>
   </body>
