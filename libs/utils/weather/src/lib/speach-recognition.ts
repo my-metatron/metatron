@@ -58,11 +58,19 @@ AFRAME.registerComponent('speech-command', {
   executeCommand: function () {
     console.log('in executeCommand for: ' + this.data.targetElement);
     const targetElement = this.data.targetElement;
+
     if (this.data.type == 'attribute') {
-      //console.log("about to change attribute "+this.data.attribute+" to: "+this.data.value);
+      /*       console.log(
+        'about to change attribute ' +
+          this.data.attribute +
+          ' to: ' +
+          this.data.value
+      ); */
+      if (this.data.attribute === 'visible' && this.data.value === 'true') {
+        window.dispatchEvent(new Event('positionplayer'));
+      }
       targetElement.setAttribute(this.data.attribute, this.data.value);
     } else if (this.data.type == 'function') {
-      //console("targetElement: "+targetElement+", components"+targetElement.components);
       const targetComponent =
         targetElement.components[this.data.targetComponent];
       targetComponent[this.data.function]();
@@ -92,7 +100,6 @@ AFRAME.registerComponent('annyang-speech-recognition', {
       const commands = {};
       const commandsMap = {};
       for (let i = 0; i < speechCommandSystem['entities'].length; i++) {
-        console.log('HEHE');
         const speechCommand = speechCommandSystem['entities'][i];
         console.log('i', i, speechCommand);
         commandsMap[speechCommand.data.command] = speechCommand;

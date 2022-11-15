@@ -1,10 +1,12 @@
 import {
   customElement,
   html,
+  inject,
   MetaElement,
   property,
   TemplateResult,
 } from '@pinser-metaverse/core';
+import { PlayerProvider } from '@pinser-metaverse/player';
 import './add-commands';
 import './speach-recognition';
 
@@ -15,8 +17,20 @@ export class WeatherElement extends MetaElement {
   })
   position!: string;
 
+  @property({
+    default: '0 0 0',
+  })
+  teleportposition!: string;
+
+  @inject()
+  playerProvider!: PlayerProvider;
+
   override init(): void {
     this.initAssets();
+    window.addEventListener(
+      'positionplayer',
+      this.computeCursorPosition.bind(this)
+    );
   }
 
   private initAssets(): void {
@@ -30,16 +44,15 @@ export class WeatherElement extends MetaElement {
     }
   }
 
+  private computeCursorPosition() {
+    this.playerProvider.teleport(`${this.teleportposition}`, '0 0 0');
+  }
+
   override render(): TemplateResult {
     return html`
       <!-- welcome panel -->
-      <a-entity id="weatherentity" add-commands>
-        <meta-dialog
-          width="2"
-          height="1"
-          rotation="0 0 0"
-          position="${this.position}"
-        >
+      <a-entity id="weatherentity" add-commands position="${this.position}">
+        <meta-dialog width="2" height="1" rotation="0 0 0">
           <a-image
             src="./assets/temperature.png"
             width="0.5"
